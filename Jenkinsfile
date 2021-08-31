@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        kubernetes {
+          defaultContainer 'maven'
+          yamlFile 'k8sBuildPod.yaml'
+        }
+      }
+
     stages {
         stage('Build') {
             steps {
