@@ -9,7 +9,7 @@ pipeline {
         stage('dependency-check') {
             steps {
                 sh 'mvn dependency-check:check'
-                dependencyCheckPublisher pattern: 'build/reports/dependency-check-report.xml'
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
             }
         }
         stage('Sonar') {
@@ -20,4 +20,9 @@ pipeline {
             }
         }
     }
+    post {
+            always {
+                dependencyCheckPublisher pattern: 'target/dependency-check-report.xml'
+            }
+        }
 }
